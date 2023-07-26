@@ -1,0 +1,122 @@
+:root {
+  font-size: 16px;
+  --app-font: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+}
+
+body {
+  font-family: var(--app-font);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+h1 {
+  text-align: center;
+  font-style: italic;
+  margin: 12px 0;
+  flex: 0 0 auto;
+}
+
+#linkedlistcanvas {
+  background-color: rgb(219, 219, 219);
+  flex: 1 1 auto;
+  height: 260px;
+  /* width: 800px; */
+  min-width: 100%;
+}
+
+/* Mainbar styling */
+
+main {
+  display: flex;
+  margin: 12px;
+  height: 100px;
+  flex: 0 0 auto;
+  gap: 24px;
+  align-items: stretch;
+}
+
+#newlist-container > button {
+  text-align: center;
+  width: 88px;
+  height: 100%;
+  padding: 12px;
+  line-height: 1.2rem;
+}
+
+#button-container {
+  display: grid;
+  height: 100%;
+  grid-auto-flow: column;
+  gap: 4px 12px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+}
+
+#content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  align-items: flex-start;
+}
+
+#content-container > h3 {
+  font-size: 1.6rem;
+}
+
+#content-container span {
+  font-style: italic;
+}
+
+#content-container > div {
+  font-size: 0.8rem;
+}
+
+#inputtext {
+  width: 12ch;
+  margin: 0 4px;
+}
+
+#content-container > button {
+  /* width: ; */
+  align-self: center;
+  padding: 0 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Node styling */
+
+.node {
+  border: 1px solid black;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.392);
+  cursor: pointer;
+  user-select: none;
+  z-index: 10;
+}
+
+.nodevalue {
+  background-color: rgb(49, 255, 63);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6rem;
+  height: 2rem;
+  pointer-events: none;
+}
+
+.nodepointer {
+  background-color: rgb(183, 0, 0);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6rem;
+  height: 2rem;
+  pointer-events: none;
+}
