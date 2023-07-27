@@ -1,6 +1,8 @@
 :root {
   font-size: 16px;
   --app-font: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+  --value1-color: red;
+  --value2-color: blue;
 }
 
 body {
@@ -69,13 +71,44 @@ main {
   font-style: italic;
 }
 
+#content-container span:nth-of-type(1) {
+  color: var(--value1-color);
+}
+
+#content-container span:nth-of-type(2) {
+  color: var(--value2-color);
+}
+
+#content-container input:nth-of-type(1) {
+  border: 1px solid var(--value1-color);
+}
+
+#content-container input:nth-of-type(2) {
+  border: 1px solid var(--value2-color);
+}
+
+#content-container input:nth-of-type(1):focus-visible {
+  outline: 1px solid var(--value1-color);
+}
+
+#content-container input:nth-of-type(2):focus-visible {
+  outline: 1px solid var(--value2-color);
+}
+
 #content-container > div {
   font-size: 0.8rem;
 }
 
 #inputtext {
-  width: 12ch;
+  width: 8ch;
+  text-align: center;
   margin: 0 4px;
+  border-radius: 8px;
+  padding: 1px 8px;
+}
+
+input:focus::placeholder {
+  color: transparent;
 }
 
 #content-container > button {
@@ -105,9 +138,23 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  padding: 6px 2px 2px 2px;
   width: 6rem;
-  height: 2rem;
+  min-height: 2rem;
+  height: min-content;
   pointer-events: none;
+  position: relative;
+}
+
+.nodevalue::before {
+  content: '.value';
+  font-size: 0.6rem;
+  position: absolute;
+  top: 0;
+  left: 2px;
+  font-style: italic;
+  opacity: 0.8;
 }
 
 .nodepointer {
@@ -116,7 +163,19 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 2px 2px 0 2px;
   width: 6rem;
   height: 2rem;
   pointer-events: none;
+  position: relative;
+}
+
+.nodepointer::before {
+  content: '.next';
+  font-size: 0.6rem;
+  position: absolute;
+  top: 0;
+  left: 2px;
+  font-style: italic;
+  opacity: 0.8;
 }

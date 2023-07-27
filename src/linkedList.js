@@ -1,13 +1,36 @@
-class Node {
-  constructor(value) {
-    this.value = value;
-    this.next = null;
+// class Node {
+//   id = 0;
+//   constructor(value) {
+//     this.value = value;
+//     this.next = null;
+//     this.id = id;
+//     id++;
+//   }
+// }
+
+function Node() {
+  let id = 0;
+
+  function create(value) {
+    const node = {
+      value: value,
+      next: null,
+      id: id, // Give each node a unique Id to make dom rendering easier
+    };
+    id++;
+    return node;
   }
+
+  return {
+    create,
+  };
 }
 
 export default function LinkedList() {
   // create the head of the list
-  const headNode = new Node();
+  const node = Node();
+
+  const headNode = node.create();
 
   // Whenever we are given an index, check if it is valid
   function _checkIndex(index) {
@@ -30,16 +53,18 @@ export default function LinkedList() {
   }
 
   function append(value) {
-    const newNode = new Node(value);
+    const newNode = node.create(value);
     const lastNode = tail();
     lastNode.next = newNode;
+    return newNode.id;
   }
 
   function prepend(value) {
-    const newNode = new Node(value);
+    const newNode = node.create(value);
     const temp = headNode.next;
     headNode.next = newNode;
     newNode.next = temp;
+    return newNode.id;
   }
 
   function pop() {
@@ -110,7 +135,7 @@ export default function LinkedList() {
     let temp = headNode;
     _checkIndex(index);
 
-    const newNode = new Node(value);
+    const newNode = node.create(value);
 
     while (temp.next) {
       if (counter === index - 1) {
@@ -121,6 +146,7 @@ export default function LinkedList() {
       temp = temp.next;
       counter += 1;
     }
+    return newNode.id;
   }
 
   function removeAt(index) {
@@ -139,6 +165,20 @@ export default function LinkedList() {
     }
   }
 
+  function traverse() {
+    // return an object with all of the data points in order, so that
+    // they can be conviently displayed on the DOM
+    const data = [];
+    let counter = 0;
+    let temp = head;
+    while (temp.next) {
+      data[counter] = temp.next.value;
+      temp = temp.next;
+    }
+
+    return data;
+  }
+
   return {
     append,
     prepend,
@@ -152,5 +192,6 @@ export default function LinkedList() {
     toString,
     insertAt,
     removeAt,
+    traverse,
   };
 }
