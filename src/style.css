@@ -70,6 +70,19 @@ main {
   height: 100%;
   padding: 12px;
   line-height: 1.2rem;
+  font-weight: bold;
+  background-color: rgb(255, 238, 233);
+  border: 1px solid rgb(126, 126, 126);
+  transition: all 200ms;
+}
+
+#newlist-container > button:hover {
+  background-color: rgb(255, 110, 107);
+  color: white;
+}
+
+#newlist-container > button:active {
+  background-color: rgb(255, 0, 0);
 }
 
 #button-container {
@@ -79,6 +92,39 @@ main {
   gap: 4px 12px;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
+}
+
+button {
+  background-color: rgb(232, 232, 232);
+  border-radius: 3px;
+  border: 1px solid rgb(131, 131, 131);
+}
+
+button:hover {
+  background-color: rgb(216, 216, 216);
+}
+
+button:active {
+  background-color: rgb(190, 190, 190);
+}
+
+#button-container button:nth-of-type(1),
+#button-container button:nth-of-type(2) {
+  /* background-color: rgb(215, 255, 218); */
+  /* background-color: rgb(213, 224, 255); */
+  /* border: 1px solid rgb(79, 126, 255); */
+  color: rgb(0, 80, 5);
+  font-weight: bold;
+}
+
+#button-container button:nth-of-type(1):hover,
+#button-container button:nth-of-type(2):hover {
+  background-color: rgb(208, 228, 210);
+}
+
+#button-container button:nth-of-type(1):active,
+#button-container button:nth-of-type(2):active {
+  background-color: rgb(171, 213, 175);
 }
 
 #content-container {
@@ -147,10 +193,11 @@ input:focus::placeholder {
 
 #content-container > button {
   align-self: center;
-  padding: 0 24px;
+  padding: 2px 24px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 8px;
 }
 
 /* Node styling */
