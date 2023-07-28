@@ -39,12 +39,24 @@ export default function CanvasController(nodeList) {
     nodePointer.className = 'nodepointer';
 
     // Give the DOM node a fake memory address
-    const randomNumber = Math.floor(Math.random() * 4228250624);
-    nodePointer.textContent = `0x${randomNumber.toString(16)}`;
+    nodePointer.textContent = getRandomAddress();
 
     node.append(nodeValue, nodePointer);
 
     return node;
+  }
+
+  function removeNode(id) {
+    const node = document.querySelector(`.node[data-nodeid="${id}"]`);
+    node.remove();
+  }
+
+  function removeAllNodes() {
+    const nodes = document.querySelectorAll('.node');
+    nodes.forEach((node) => {
+      node.remove();
+    });
+    ctx.clearRect(0, 0, canvasRect.width, canvasRect.height);
   }
 
   function getStartingPosition() {
@@ -60,6 +72,28 @@ export default function CanvasController(nodeList) {
     const [newX, newY] = _clampCoordinates(x, y, rect.width, rect.height);
     node.style.left = `${newX}px`;
     node.style.top = `${newY}px`;
+  }
+
+  function updatePointers() {
+    // Make sure that the last node.next displays 'null'
+    if (list.size() >= 1) {
+      const lastNode = list.tail();
+      const lastNodePointer = document.querySelector(
+        `.node[data-nodeid="${lastNode.id}"] .nodepointer`
+      );
+      lastNodePointer.textContent = 'null';
+    }
+
+    // And that the second-last node's .next displays an address
+    if (list.size() >= 2) {
+      const secondLastNode = list.at(list.size() - 2);
+      const secondLastNodePointer = document.querySelector(
+        `.node[data-nodeid="${secondLastNode.id}"] .nodepointer`
+      );
+      if (secondLastNodePointer.textContent === 'null') {
+        secondLastNodePointer.textContent = getRandomAddress();
+      }
+    }
   }
 
   function _drawConnectingLine(firstNodeId, secondNodeId) {
@@ -86,8 +120,7 @@ export default function CanvasController(nodeList) {
 
   function connectNodes() {
     // Clear the canvas before drawing the connections
-    const rect = canvas.getBoundingClientRect();
-    ctx.clearRect(0, 0, rect.width, rect.height);
+    ctx.clearRect(0, 0, canvasRect.width, canvasRect.height);
 
     // Set line styles
     ctx.strokeStyle = '#000000';
@@ -108,24 +141,6 @@ export default function CanvasController(nodeList) {
     // Render the final line to the canvas
     ctx.stroke();
   }
-
-  // function append(value) {
-  //   const newNode = _createNode(value);
-  //   nodeObjects.push(newNode);
-
-  //   let left, top;
-  //   if (nodeObjects.length === 1) {
-  //     [left, top] = _getStartingPosition();
-  //   } else {
-  //     const lastNode = nodeObjects[nodeObjects.length - 2];
-  //     const lastRect = lastNode.getBoundingClientRect();
-  //     left = lastRect.left + 200; // 200 px spacing between elements
-  //     top = lastRect.top + (Math.random() * 100 - 50);
-  //   }
-
-  //   _appendNodeToDom(newNode, left, top);
-  //   _connectNodes();
-  // }
 
   function _clampCoordinates(x, y, width, height) {
     // Clamp the new left value between canvasRect.left and (canvasRect.right - deRect.width), accounting for scroll
@@ -172,6 +187,7 @@ export default function CanvasController(nodeList) {
     const draggedElement = document.querySelector(
       `.node[data-nodeid="${nodeId}"]`
     );
+    draggedElement.classList.add('selected');
     const deRect = draggedElement.getBoundingClientRect();
 
     let mouseDown = true;
@@ -203,16 +219,27 @@ export default function CanvasController(nodeList) {
 
       connectNodes();
 
-      if (!mouseDown) cancelAnimationFrame(animation);
+      if (!mouseDown) {
+        draggedElement.classList.remove('selected');
+        cancelAnimationFrame(animation);
+      }
     }
 
     animate();
   });
 
+  function getRandomAddress() {
+    const randomNumber = Math.floor(Math.random() * 4228250624);
+    return `0x${randomNumber.toString(16)}`;
+  }
+
   return {
     createNode,
+    removeNode,
+    removeAllNodes,
     getStartingPosition,
     appendNodeToDom,
     connectNodes,
+    updatePointers,
   };
 }

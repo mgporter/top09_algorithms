@@ -69,13 +69,18 @@ export default function LinkedList() {
 
   function pop() {
     let temp = headNode;
+    let poppedNodeId = null;
     while (temp.next) {
       if (temp.next.next === null) {
+        poppedNodeId = temp.next.id;
+
         temp.next = null;
-        return;
+        return poppedNodeId;
       }
       temp = temp.next;
     }
+
+    return null;
   }
 
   function size() {
@@ -101,6 +106,7 @@ export default function LinkedList() {
     let counter = 0;
     let temp = headNode;
     while (temp.next) {
+      console.log(counter);
       if (temp.next.value == value) return counter;
       temp = temp.next;
       counter += 1;
@@ -141,12 +147,12 @@ export default function LinkedList() {
       if (counter === index - 1) {
         newNode.next = temp.next;
         temp.next = newNode;
-        return;
+        return newNode.id;
       }
       temp = temp.next;
       counter += 1;
     }
-    return newNode.id;
+    return;
   }
 
   function removeAt(index) {
@@ -179,6 +185,10 @@ export default function LinkedList() {
     return data;
   }
 
+  function removeAllNodes() {
+    headNode.next = null;
+  }
+
   return {
     append,
     prepend,
@@ -193,5 +203,6 @@ export default function LinkedList() {
     insertAt,
     removeAt,
     traverse,
+    removeAllNodes,
   };
 }
