@@ -1,4 +1,4 @@
-# top09_algorithms
+# top09_linkedlist
 
 Odin Project from https://www.theodinproject.com/lessons/javascript-linked-lists
 
