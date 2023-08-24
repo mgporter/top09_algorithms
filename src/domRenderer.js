@@ -249,7 +249,7 @@ export default function DomRenderer() {
         Removes the node at position <span>index</span>.
       </div>
       <label for="inputtext">
-        list.insertAt(<input
+        list.removeAt(<input
         type="number"
         id="inputindex"
         name="inputindex"
